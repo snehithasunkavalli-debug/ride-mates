@@ -72,8 +72,8 @@
           <div class="user-dropdown-menu" id="user-dropdown-menu">
             <div class="dropdown-user-header">
               <h5 id="dropdown-user-name">Rahul Sharma</h5>
-              <p id="dropdown-user-email">rahul.s@campus.edu.in</p>
-              <span class="problem-pill" style="margin-top:4px; display:inline-block; font-size:10px;">IIT Delhi Verified</span>
+              <p id="dropdown-user-email">rahul.s@vitstudent.ac.in</p>
+              <span class="problem-pill" style="margin-top:4px; display:inline-block; font-size:10px;">VIT Vellore Verified</span>
             </div>
             <button class="dropdown-link-item" onclick="navigateTo('profile')">
               <span>👤</span> View Profile
@@ -145,7 +145,7 @@
             Campus travel, made <span>affordable & safe</span> with fellow students.
           </h1>
           <p class="hero-subtext">
-            RideMates links verified college students going to the railway station, airport, or city centre at the same time. Split cab fares automatically, avoid awkward money chats, and travel with trust.
+            RideMates links verified VIT Vellore students heading to Katpadi Junction, Chennai & Bangalore airports, or Vellore city centre at the same time. Split cab & auto fares automatically, avoid awkward money chats, and travel safely with peers.
           </p>
           <div class="hero-cta-group">
             <button class="btn-web-primary" onclick="navigateTo('signup')">
@@ -167,7 +167,7 @@
           <div class="feature-banner-icon">🛡️</div>
           <div class="feature-banner-text">
             <h4>Verified College Email Requirement</h4>
-            <p>Solves stranger danger and build peer trust — strictly limited to verified institutional student emails.</p>
+            <p>Solves stranger danger and builds peer trust — strictly limited to verified institutional student emails (`@vitstudent.ac.in`).</p>
           </div>
         </div>
         <span class="problem-pill">Problem Solved: Safety & Trust</span>
@@ -178,19 +178,19 @@
         <div class="welcome-feature-card">
           <div class="card-icon-bubble">➗</div>
           <h3>Automatic Fare Split</h3>
-          <p>Total taxi fares divide equally among all riders down to the exact rupee. Zero manual calculations or UPI chasing.</p>
+          <p>Total auto/cab fares divide equally among all riders down to the exact rupee. Zero manual calculations or UPI chasing.</p>
         </div>
 
         <div class="welcome-feature-card">
           <div class="card-icon-bubble">🎓</div>
           <h3>Student-Verified Only</h3>
-          <p>Strict college domain validation (`.edu.in`), peer star ratings, and transparent hostel/batch identity badges.</p>
+          <p>Strict VIT student domain validation (`@vitstudent.ac.in`), peer star ratings, and transparent hostel/registration identity badges.</p>
         </div>
 
         <div class="welcome-feature-card">
           <div class="card-icon-bubble">💰</div>
           <h3>Save Up To 70%</h3>
-          <p>Why pay ₹300 alone for a cab to the railway station when 3 batchmates are going at the exact same hour for ₹100 each?</p>
+          <p>Why pay ₹120 alone for an auto to Katpadi Junction or ₹2,800 for an airport cab when batchmates are going at the exact same hour for ₹40 or ₹700 each?</p>
         </div>
       </div>
 
@@ -201,44 +201,44 @@
       </div>
 
       <div class="routes-grid-3">
-        <div class="route-web-card" onclick="searchRides('Campus Main Gate', 'New Delhi Railway Station')">
+        <div class="route-web-card" onclick="selectQuickChip('VIT Main Gate', 'Katpadi Junction Railway Station', null); searchRides('VIT Main Gate', 'Katpadi Junction Railway Station')">
           <div class="route-top-info">
             <div class="route-icon-box">🚆</div>
             <div class="route-names-col">
-              <h4>Campus ➔ Railway Station</h4>
-              <p>12 km • ~25 mins • 3 rides open</p>
+              <h4>VIT Main Gate ➔ Katpadi Station</h4>
+              <p>3.2 km • ~10 mins • 3 rides open</p>
             </div>
           </div>
           <div class="route-bottom-info">
-            <div class="route-price-box">₹100 <span>/ person</span></div>
+            <div class="route-price-box">₹40 <span>/ person</span></div>
             <button class="btn-book-quick">Join Ride</button>
           </div>
         </div>
 
-        <div class="route-web-card" onclick="searchRides('Hostel Block C', 'Airport Terminal 3')">
+        <div class="route-web-card" onclick="selectQuickChip('VIT LH Gate', 'Chennai Airport (MAA Terminal 1/4)', null); searchRides('VIT LH Gate', 'Chennai Airport (MAA Terminal 1/4)')">
           <div class="route-top-info">
             <div class="route-icon-box">✈️</div>
             <div class="route-names-col">
-              <h4>Campus ➔ Airport (T3)</h4>
-              <p>35 km • ~45 mins • 2 rides open</p>
+              <h4>VIT LH Gate ➔ Chennai Airport (MAA)</h4>
+              <p>130 km • ~2.5 hrs • 2 rides open</p>
             </div>
           </div>
           <div class="route-bottom-info">
-            <div class="route-price-box">₹200 <span>/ person</span></div>
+            <div class="route-price-box">₹700 <span>/ person</span></div>
             <button class="btn-book-quick">Join Ride</button>
           </div>
         </div>
 
-        <div class="route-web-card" onclick="searchRides('Campus Library', 'Connaught Place')">
+        <div class="route-web-card" onclick="selectQuickChip('VIT SJT Circle', 'Vellore New Bus Stand (Green Circle)', null); searchRides('VIT SJT Circle', 'Vellore New Bus Stand (Green Circle)')">
           <div class="route-top-info">
-            <div class="route-icon-box">🏙️</div>
+            <div class="route-icon-box">🚌</div>
             <div class="route-names-col">
-              <h4>Campus ➔ City Centre</h4>
-              <p>18 km • ~30 mins • 4 rides open</p>
+              <h4>VIT SJT Circle ➔ Vellore New Bus Stand</h4>
+              <p>4.5 km • ~15 mins • 4 rides open</p>
             </div>
           </div>
           <div class="route-bottom-info">
-            <div class="route-price-box">₹120 <span>/ person</span></div>
+            <div class="route-price-box">₹50 <span>/ person</span></div>
             <button class="btn-book-quick">Join Ride</button>
           </div>
         </div>
@@ -261,11 +261,11 @@
           <div class="accounts-pills-row">
             <button type="button" class="account-pill-btn" onclick="quickLogin('rahul')">
               <span class="pill-avatar-micro">RS</span>
-              <span>Rahul Sharma (IIT Delhi)</span>
+              <span>Rahul Sharma (VIT CSE '25)</span>
             </button>
             <button type="button" class="account-pill-btn" onclick="quickLogin('ananya')">
               <span class="pill-avatar-micro" style="background:#ec4899;">AI</span>
-              <span>Ananya Iyer (IIT Delhi)</span>
+              <span>Ananya Iyer (VIT Biotech '25)</span>
             </button>
           </div>
         </div>
@@ -273,12 +273,12 @@
         <form class="form-web-card" onsubmit="handleLogin(event)">
           <div class="form-group-web">
             <label class="label-web" for="input-login-email">
-              College Email
-              <span class="label-sub">.edu.in account</span>
+              VIT Student Email
+              <span class="label-sub">@vitstudent.ac.in account</span>
             </label>
             <div class="input-web-wrapper">
               <span class="input-web-icon">🎓</span>
-              <input class="input-web-control" id="input-login-email" type="email" placeholder="rahul.s@campus.edu.in" value="rahul.s@campus.edu.in" required>
+              <input class="input-web-control" id="input-login-email" type="email" placeholder="rahul.s@vitstudent.ac.in" value="rahul.s@vitstudent.ac.in" required>
             </div>
           </div>
 
@@ -322,7 +322,7 @@
             <div class="feature-banner-icon">🔒</div>
             <div class="feature-banner-text">
               <h4>Institutional Email Authentication</h4>
-              <p>Ensures every co-passenger is an enrolled campus peer.</p>
+              <p>Ensures every co-passenger is an enrolled VIT Vellore campus peer.</p>
             </div>
           </div>
           <span class="problem-pill">Safety & Trust</span>
@@ -339,12 +339,12 @@
 
           <div class="form-group-web">
             <label class="label-web" for="input-signup-email">
-              College Email Address
-              <span class="label-sub">Official .edu.in domain</span>
+              VIT Student Email
+              <span class="label-sub">Official @vitstudent.ac.in domain</span>
             </label>
             <div class="input-web-wrapper">
               <span class="input-web-icon">🎓</span>
-              <input class="input-web-control" id="input-signup-email" type="email" placeholder="rahul.s@campus.edu.in" value="rahul.s@campus.edu.in" required>
+              <input class="input-web-control" id="input-signup-email" type="email" placeholder="rahul.s@vitstudent.ac.in" value="rahul.s@vitstudent.ac.in" required>
             </div>
           </div>
 
@@ -359,8 +359,8 @@
           <div class="student-verify-notice">
             <span class="verify-notice-icon">🛡️</span>
             <div class="verify-notice-content">
-              <h5>Only verified college students can join</h5>
-              <p>We automatically send a one-click authentication token to your institutional email to maintain our closed campus trust loop.</p>
+              <h5>Only verified VIT students can join</h5>
+              <p>We automatically authenticate your `@vitstudent.ac.in` email to ensure only enrolled campus students share rides.</p>
             </div>
           </div>
 
