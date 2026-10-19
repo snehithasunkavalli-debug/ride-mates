@@ -3,30 +3,30 @@
  * "Same route. Same time. Split the fare."
  */
 
-// Preset student accounts for instant demo testing
+// Preset student accounts for instant demo testing (VIT Vellore)
 const presetAccounts = {
   rahul: {
     name: "Rahul Sharma",
-    email: "rahul.s@campus.edu.in",
+    email: "rahul.s@vitstudent.ac.in",
     phone: "+91 98765 43210",
-    college: "IIT Delhi",
-    branch: "Computer Science '25",
+    college: "VIT Vellore",
+    branch: "B.Tech CSE '25 (MH-Q Block)",
     rating: 4.9,
     ridesCount: 24,
-    totalSaved: 4250,
-    co2Saved: 38,
+    totalSaved: 4850,
+    co2Saved: 42,
     isVerified: true
   },
   ananya: {
     name: "Ananya Iyer",
-    email: "ananya.i@campus.edu.in",
+    email: "ananya.i@vitstudent.ac.in",
     phone: "+91 98112 33445",
-    college: "IIT Delhi",
-    branch: "Biotech '25",
+    college: "VIT Vellore",
+    branch: "B.Tech Biotech '25 (LH Block)",
     rating: 4.9,
     ridesCount: 18,
-    totalSaved: 3100,
-    co2Saved: 28,
+    totalSaved: 3600,
+    co2Saved: 32,
     isVerified: true
   }
 };
@@ -42,102 +42,125 @@ const state = {
   // Currently selected ride for details & confirmation
   selectedRide: null,
 
-  // Sample Campus Rides Dataset
+  // Sample Campus Rides Dataset (VIT Vellore to nearby hubs)
   rides: [
     {
-      id: "RIDE-101",
+      id: "RIDE-VIT-101",
       posterName: "Aman Verma",
       posterAvatar: "AV",
       posterRating: 4.9,
-      posterCollege: "IIT Delhi (Mechanical '25)",
+      posterCollege: "VIT Vellore (Mech '25 • MH-D)",
       isVerified: true,
-      from: "Campus Main Gate",
-      to: "New Delhi Railway Station",
+      from: "VIT Main Gate (Green Circle Road)",
+      to: "Katpadi Junction Railway Station",
       departureTime: "6:30 PM Today",
       seatsTotal: 3,
       seatsLeft: 2,
-      totalFare: 300,
-      farePerPerson: 100,
-      savingsVsSolo: 200,
-      vehicle: "White Swift Dzire (DL 01 AB 1234)",
+      totalFare: 120,
+      farePerPerson: 40,
+      savingsVsSolo: 80,
+      vehicle: "Vellore Shared Auto (TN 23 AB 1234)",
       coriders: [
-        { name: "Aman V. (Host)", role: "Driver", rating: 4.9 },
+        { name: "Aman V. (Host)", role: "Host", rating: 4.9 },
         { name: "Sneha Roy", role: "Co-rider", rating: 4.8 }
       ],
       chatMessages: [
-        { sender: "Aman V.", text: "Hey folks! I will be waiting near Gate 2 opposite the Cafe.", isMe: false, time: "6:10 PM" },
-        { sender: "Sneha Roy", text: "Got it! Reaching there in 5 minutes with my luggage.", isMe: false, time: "6:12 PM" }
+        { sender: "Aman V.", text: "Hey folks! Waiting right at VIT Main Gate near the SBI ATM / Foodys.", isMe: false, time: "6:10 PM" },
+        { sender: "Sneha Roy", text: "Coming down from MH-P block, reaching in 5 mins with my trolley bag!", isMe: false, time: "6:12 PM" }
       ]
     },
     {
-      id: "RIDE-102",
+      id: "RIDE-VIT-102",
       posterName: "Priya Sharma",
       posterAvatar: "PS",
       posterRating: 5.0,
-      posterCollege: "IIT Delhi (CS '26)",
+      posterCollege: "VIT Vellore (CSE '26 • LH)",
       isVerified: true,
-      from: "Campus Hostel Block C",
-      to: "Indira Gandhi Int'l Airport (T3)",
+      from: "VIT Ladies Hostel Gate (LH Gate)",
+      to: "Chennai Airport (MAA Terminal 1/4)",
       departureTime: "7:15 PM Today",
       seatsTotal: 4,
       seatsLeft: 1,
-      totalFare: 800,
-      farePerPerson: 200,
-      savingsVsSolo: 600,
-      vehicle: "Hyundai i20 (HR 26 DQ 5678)",
+      totalFare: 2800,
+      farePerPerson: 700,
+      savingsVsSolo: 2100,
+      vehicle: "Innova Crysta AC (TN 23 C 5678)",
       coriders: [
-        { name: "Priya S. (Host)", role: "Driver", rating: 5.0 },
+        { name: "Priya S. (Host)", role: "Host", rating: 5.0 },
         { name: "Kunal M.", role: "Co-rider", rating: 4.9 },
         { name: "Aditi G.", role: "Co-rider", rating: 4.8 }
       ],
       chatMessages: [
-        { sender: "Priya S.", text: "Leaving promptly at 7:15 PM to avoid airport flyover toll traffic.", isMe: false, time: "6:30 PM" }
+        { sender: "Priya S.", text: "Leaving promptly at 7:15 PM from LH Gate to reach Chennai Airport via NH48 before traffic.", isMe: false, time: "6:30 PM" }
       ]
     },
     {
-      id: "RIDE-103",
+      id: "RIDE-VIT-103",
       posterName: "Rohan Nair",
       posterAvatar: "RN",
       posterRating: 4.8,
-      posterCollege: "IIT Delhi (Electrical '24)",
+      posterCollege: "VIT Vellore (EEE '24 • MH-G)",
       isVerified: true,
-      from: "Campus Library Circle",
-      to: "Connaught Place (City Centre)",
+      from: "VIT Silver Jubilee Tower (SJT Circle)",
+      to: "Vellore New Bus Stand (Green Circle)",
       departureTime: "8:00 PM Today",
       seatsTotal: 3,
       seatsLeft: 2,
-      totalFare: 360,
-      farePerPerson: 120,
-      savingsVsSolo: 240,
-      vehicle: "Maruti Baleno (DL 04 EF 9012)",
+      totalFare: 150,
+      farePerPerson: 50,
+      savingsVsSolo: 100,
+      vehicle: "Maruti Dzire AC (TN 23 D 9012)",
       coriders: [
-        { name: "Rohan N. (Host)", role: "Driver", rating: 4.8 }
+        { name: "Rohan N. (Host)", role: "Host", rating: 4.8 }
       ],
       chatMessages: [
-        { sender: "Rohan N.", text: "Heading to CP for project dinner. 2 open seats left!", isMe: false, time: "6:45 PM" }
+        { sender: "Rohan N.", text: "Heading to New Bus Stand for the Bangalore KSRTC bus. 2 seats open!", isMe: false, time: "6:45 PM" }
       ]
     },
     {
-      id: "RIDE-104",
+      id: "RIDE-VIT-104",
       posterName: "Ananya Iyer",
       posterAvatar: "AI",
       posterRating: 4.9,
-      posterCollege: "IIT Delhi (Biotech '25)",
+      posterCollege: "VIT Vellore (Biotech '25 • LH)",
       isVerified: true,
-      from: "Campus Main Gate",
-      to: "Cyber Hub, Gurugram",
-      departureTime: "8:45 PM Today",
+      from: "VIT Technology Tower (TT Circle)",
+      to: "Bengaluru Airport (BLR Terminal 1)",
+      departureTime: "9:30 PM Today",
       seatsTotal: 4,
       seatsLeft: 3,
-      totalFare: 600,
-      farePerPerson: 150,
-      savingsVsSolo: 450,
-      vehicle: "Honda City (DL 03 Z 4321)",
+      totalFare: 3600,
+      farePerPerson: 900,
+      savingsVsSolo: 2700,
+      vehicle: "Maruti Ertiga AC (KA 01 MJ 3456)",
       coriders: [
-        { name: "Ananya I. (Host)", role: "Driver", rating: 4.9 }
+        { name: "Ananya I. (Host)", role: "Host", rating: 4.9 }
       ],
       chatMessages: [
-        { sender: "Ananya I.", text: "Comfortable AC sedan booked, splitting fare equally.", isMe: false, time: "7:00 PM" }
+        { sender: "Ananya I.", text: "Comfortable AC Ertiga booked directly to BLR Airport via Hosur, splitting 4 ways!", isMe: false, time: "7:00 PM" }
+      ]
+    },
+    {
+      id: "RIDE-VIT-105",
+      posterName: "Vikas Reddy",
+      posterAvatar: "VR",
+      posterRating: 4.9,
+      posterCollege: "VIT Vellore (ECE '25 • MH-J)",
+      isVerified: true,
+      from: "VIT Back Gate (Katpadi Road)",
+      to: "Sripuram Golden Temple / V-Square Mall",
+      departureTime: "5:00 PM Tomorrow",
+      seatsTotal: 3,
+      seatsLeft: 2,
+      totalFare: 240,
+      farePerPerson: 80,
+      savingsVsSolo: 160,
+      vehicle: "Swift Hatchback (TN 23 E 4321)",
+      coriders: [
+        { name: "Vikas R. (Host)", role: "Host", rating: 4.9 }
+      ],
+      chatMessages: [
+        { sender: "Vikas R.", text: "Weekend trip to Golden Temple and mall dinner. Anyone want to join?", isMe: false, time: "3:30 PM" }
       ]
     }
   ],
@@ -147,20 +170,20 @@ const state = {
     upcoming: [],
     past: [
       {
-        id: "RIDE-089",
-        route: "Campus to City Centre",
+        id: "RIDE-VIT-089",
+        route: "VIT Main Gate ➔ Katpadi Junction",
         date: "Yesterday, 5:30 PM",
-        fare: 120,
+        fare: 40,
         status: "Completed",
-        withWho: "Rohan & 2 other students"
+        withWho: "Rohan & 2 other VITians"
       },
       {
-        id: "RIDE-076",
-        route: "Airport T3 to Campus",
+        id: "RIDE-VIT-076",
+        route: "Chennai Airport (MAA) ➔ VIT Main Gate",
         date: "14 Oct, 9:00 PM",
-        fare: 200,
+        fare: 700,
         status: "Completed",
-        withWho: "Priya & 3 other students"
+        withWho: "Priya & 3 other VITians"
       }
     ]
   }
@@ -747,15 +770,15 @@ function handlePostRide(e) {
     return;
   }
 
-  const from = document.getElementById("offer-from-input").value.trim() || "Campus Main Gate";
-  const to = document.getElementById("offer-to-input").value.trim() || "Connaught Place";
+  const from = document.getElementById("offer-from-input").value.trim() || "VIT Main Gate";
+  const to = document.getElementById("offer-to-input").value.trim() || "Katpadi Railway Station";
   const date = document.getElementById("offer-date-input").value || "Today";
   const time = document.getElementById("offer-time-input").value || "7:30 PM";
-  const fare = parseFloat(document.getElementById("offer-fare-input").value) || 300;
+  const fare = parseFloat(document.getElementById("offer-fare-input").value) || 120;
 
   const perSeat = Math.round(fare / (offerSeats + 1));
   const newRide = {
-    id: `RIDE-${Math.floor(200 + Math.random() * 800)}`,
+    id: `RIDE-VIT-${Math.floor(200 + Math.random() * 800)}`,
     posterName: state.currentUser.name,
     posterAvatar: state.currentUser.name.split(" ").map(n => n[0]).join(""),
     posterRating: state.currentUser.rating,
@@ -769,12 +792,12 @@ function handlePostRide(e) {
     totalFare: fare,
     farePerPerson: perSeat,
     savingsVsSolo: fare - perSeat,
-    vehicle: "Personal Sedan (DL 09 XY 7890)",
+    vehicle: "Personal Sedan / Auto (TN 23 XY 7890)",
     coriders: [
-      { name: `${state.currentUser.name} (Driver)`, role: "Host", rating: state.currentUser.rating }
+      { name: `${state.currentUser.name} (Host)`, role: "Host", rating: state.currentUser.rating }
     ],
     chatMessages: [
-      { sender: state.currentUser.name, text: "Ride posted! Traveling safely together.", isMe: true, time: "Just now" }
+      { sender: state.currentUser.name, text: "Ride posted! Traveling together from VIT.", isMe: true, time: "Just now" }
     ]
   };
 
@@ -927,9 +950,9 @@ function sendChatMessage() {
   // Simulated co-rider automated reply
   setTimeout(() => {
     const replies = [
-      "Awesome! I'm already at the pickup spot.",
-      "Driver just confirmed car number DL 01 AB 1234.",
-      "Got it! See you in 5 minutes."
+      "Awesome! I'm right outside VIT Main Gate near the SBI ATM.",
+      "Driver just confirmed registration TN 23 AB 1234.",
+      "Coming down from MH Block, see you in 5 minutes!"
     ];
     const peerReply = replies[Math.floor(Math.random() * replies.length)];
     ride.chatMessages.push({
@@ -958,7 +981,7 @@ function closeSOSModal() {
 
 function triggerEmergencyAlert() {
   playSound("success");
-  showToast("SOS Alert sent to Campus Security & Mom!", "🚨");
+  showToast("SOS Alert sent to VIT Campus Security (+91 416 220 2111) & Mom!", "🚨");
   closeSOSModal();
 }
 
@@ -977,7 +1000,7 @@ function closeShareModal() {
 
 function copyTripLink() {
   playSound("click");
-  const link = "https://ridemates.campus/track/DL01AB1234";
+  const link = "https://ridemates.campus/track/TN23AB1234";
   if (navigator.clipboard) {
     navigator.clipboard.writeText(link).catch(() => {});
   }
