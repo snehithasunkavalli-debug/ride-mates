@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RideMates | Same route. Same time. Split the fare.</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Demo Announcement Bar -->
+  <aside class="top-notice-bar">
+    <div class="top-notice-left">
+      <span class="notice-pill">Demo Mode</span>
+      <span><strong>RideMates</strong> — Student Carpooling & Fare Splitting Web Prototype</span>
+    </div>
+    <div class="top-notice-right">
+      <button class="notice-link-btn" onclick="togglePitchGuide(true)">
+        <span>💡</span> Pitch & Feature Guide
+      </button>
+      <div class="theme-switch-group">
+        <span style="font-size:11px; opacity:0.8; margin-right:4px;">Primary Color:</span>
+        <button class="theme-pill-btn blue-btn active" id="theme-toggle-blue" onclick="toggleTheme('blue')">Blue</button>
+        <button class="theme-pill-btn yellow-btn" id="theme-toggle-yellow" onclick="toggleTheme('yellow')">Yellow</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Modern Sticky Website Header -->
+  <header class="site-navbar">
+    <div class="navbar-container">
+      <div class="nav-brand" onclick="navigateTo('home')">
+        <div class="brand-icon">RM</div>
+        <div class="brand-text-col">
+          <span class="brand-logo-text">RideMates</span>
+          <span class="brand-subline">Same route. Same time. Split the fare.</span>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-links-menu">
+          <li><button class="nav-link-item" data-page="home" onclick="navigateTo('home')">Home</button></li>
+          <li><button class="nav-link-item" data-page="find-ride" onclick="navigateTo('find-ride')">Find a Ride</button></li>
+          <li><button class="nav-link-item" data-page="offer-ride" onclick="navigateTo('offer-ride')">Offer a Ride</button></li>
+          <li><button class="nav-link-item" data-page="my-rides" onclick="navigateTo('my-rides')">My Rides</button></li>
+          <li><button class="nav-link-item" data-page="profile" onclick="navigateTo('profile')">Profile</button></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="user-profile-badge" onclick="navigateTo('profile')" title="View Student Profile">
+          <div class="user-avatar-circle" id="nav-user-avatar">RS</div>
+          <div class="user-info-snippet">
+            <span class="user-snippet-name" id="nav-user-name">Rahul Sharma</span>
+            <span class="user-snippet-badge">🛡️ IIT Delhi Verified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Website Content Container -->
+  <main class="web-main-container">
+
+    <!-- ================= 1. WELCOME PAGE ================= -->
+    <section class="page active" id="page-welcome">
+      <div class="welcome-hero-web">
+        <div class="hero-content-max">
+          <div class="hero-tagline-badge">
+            <span>✨</span> Same route. Same time. Split the fare.
+          </div>
+          <h1 class="hero-heading">
+            Campus travel, made <span>affordable & safe</span> with fellow students.
+          </h1>
+          <p class="hero-subtext">
+            RideMates links verified college students going to the railway station, airport, or city centre at the same time. Split cab fares automatically, avoid awkward money chats, and travel with trust.
+          </p>
+          <div class="hero-cta-group">
+            <button class="btn-web-primary" onclick="navigateTo('signup')">
+              Get Started (Join Network) ➔
+            </button>
+            <button class="btn-web-secondary" onclick="navigateTo('find-ride')">
+              Browse Open Rides 🔍
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Highlight Callout for Presentations -->
+      <div class="web-feature-banner">
+        <div class="feature-banner-left">
+          <div class="feature-banner-icon">🛡️</div>
+          <div class="feature-banner-text">
+            <h4>Verified College Email Requirement</h4>
+            <p>Solves stranger danger and build peer trust — strictly limited to verified institutional student emails.</p>
+          </div>
+        </div>
+        <span class="problem-pill">Problem Solved: Safety & Trust</span>
+      </div>
+
+      <!-- 3-Column Value Features Grid -->
+      <div class="welcome-grid-3">
+        <div class="welcome-feature-card">
+          <div class="card-icon-bubble">➗</div>
+          <h3>Automatic Fare Split</h3>
+          <p>Total taxi fares divide equally among all riders down to the exact rupee. Zero manual calculations or UPI chasing.</p>
+        </div>
+
+        <div class="welcome-feature-card">
+          <div class="card-icon-bubble">🎓</div>
+          <h3>Student-Verified Only</h3>
+          <p>Strict college domain validation (`.edu.in`), peer star ratings, and transparent hostel/batch identity badges.</p>
+        </div>
+
+        <div class="welcome-feature-card">
+          <div class="card-icon-bubble">💰</div>
+          <h3>Save Up To 70%</h3>
+          <p>Why pay ₹300 alone for a cab to the railway station when 3 batchmates are going at the exact same hour for ₹100 each?</p>
+        </div>
+      </div>
+
+      <!-- Popular Routes Preview on Welcome Page -->
+      <div class="section-header-title-row">
+        <h3 class="section-h3">Popular Campus Routes Available Now</h3>
+        <span style="font-size:13px; color:var(--text-muted);">Instant booking with peers</span>
+      </div>
+
+      <div class="routes-grid-3">
+        <div class="route-web-card" onclick="searchRides('Campus Main Gate', 'New Delhi Railway Station')">
+          <div class="route-top-info">
+            <div class="route-icon-box">🚆</div>
+            <div class="route-names-col">
+              <h4>Campus ➔ Railway Station</h4>
+              <p>12 km • ~25 mins • 3 rides open</p>
+            </div>
+          </div>
+          <div class="route-bottom-info">
+            <div class="route-price-box">₹100 <span>/ person</span></div>
+            <button class="btn-book-quick">Join Ride</button>
+          </div>
+        </div>
+
+        <div class="route-web-card" onclick="searchRides('Hostel Block C', 'Airport Terminal 3')">
+          <div class="route-top-info">
+            <div class="route-icon-box">✈️</div>
+            <div class="route-names-col">
+              <h4>Campus ➔ Airport (T3)</h4>
+              <p>35 km • ~45 mins • 2 rides open</p>
+            </div>
+          </div>
+          <div class="route-bottom-info">
+            <div class="route-price-box">₹200 <span>/ person</span></div>
+            <button class="btn-book-quick">Join Ride</button>
+          </div>
+        </div>
+
+        <div class="route-web-card" onclick="searchRides('Campus Library', 'Connaught Place')">
+          <div class="route-top-info">
+            <div class="route-icon-box">🏙️</div>
+            <div class="route-names-col">
+              <h4>Campus ➔ City Centre</h4>
+              <p>18 km • ~30 mins • 4 rides open</p>
+            </div>
+          </div>
+          <div class="route-bottom-info">
+            <div class="route-price-box">₹120 <span>/ person</span></div>
+            <button class="btn-book-quick">Join Ride</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. SIGN UP PAGE ================= -->
+    <section class="page" id="page-signup">
+      <div class="signup-layout-web">
+        <div class="page-header-row" style="justify-content:center; text-align:center; margin-bottom:16px;">
+          <div>
+            <h2 class="page-headline">Student Sign Up</h2>
+            <p class="page-subheadline">Create your verified student profile in 30 seconds</p>
+          </div>
+        </div>
+
+        <div class="web-feature-banner">
+          <div class="feature-banner-left">
+            <div class="feature-banner-icon">🔒</div>
+            <div class="feature-banner-text">
+              <h4>Institutional Email Authentication</h4>
+              <p>Ensures every co-passenger is an enrolled campus peer.</p>
+            </div>
+          </div>
+          <span class="problem-pill">Safety & Trust</span>
+        </div>
+
+        <form class="form-web-card" onsubmit="handleSignUp(event)">
+          <div class="form-group-web">
+            <label class="label-web" for="input-signup-name">Full Name</label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">👤</span>
+              <input class="input-web-control" id="input-signup-name" type="text" placeholder="Rahul Sharma" value="Rahul Sharma" required>
+            </div>
+          </div>
+
+          <div class="form-group-web">
+            <label class="label-web" for="input-signup-email">
+              College Email Address
+              <span class="label-sub">Official .edu.in domain</span>
+            </label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">🎓</span>
+              <input class="input-web-control" id="input-signup-email" type="email" placeholder="rahul.s@campus.edu.in" value="rahul.s@campus.edu.in" required>
+            </div>
+          </div>
+
+          <div class="form-group-web">
+            <label class="label-web" for="input-signup-phone">Phone Number (WhatsApp updates)</label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">📱</span>
+              <input class="input-web-control" id="input-signup-phone" type="tel" placeholder="+91 98765 43210" value="+91 98765 43210" required>
+            </div>
+          </div>
+
+          <div class="student-verify-notice">
+            <span class="verify-notice-icon">🛡️</span>
+            <div class="verify-notice-content">
+              <h5>Only verified college students can join</h5>
+              <p>We automatically send a one-click authentication token to your institutional email to maintain our closed campus trust loop.</p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-web-primary" style="width:100%; justify-content:center; padding:16px;">
+            Verify and Continue ➔
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= 3. HOME PAGE ================= -->
+    <section class="page" id="page-home">
+      <!-- Greeting Banner -->
+      <div class="home-welcome-banner">
+        <div class="welcome-badge-col">
+          <h2>Hi, <span id="home-greeting-name">Rahul</span> 👋</h2>
+          <p>Where are you heading today? Find peers or offer your empty seats.</p>
+          <div class="campus-verified-tag">
+            <span>🛡️ Verified Student • IIT Delhi</span>
+          </div>
+        </div>
+
+        <div class="home-quick-metrics">
+          <div class="quick-metric-box">
+            <div class="metric-num">₹4,250</div>
+            <div class="metric-label">Total Saved</div>
+          </div>
+          <div class="quick-metric-box">
+            <div class="metric-num">24</div>
+            <div class="metric-label">Rides Taken</div>
+          </div>
+          <div class="quick-metric-box">
+            <div class="metric-num">★ 4.9</div>
+            <div class="metric-label">Student Rating</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two Big Action Cards -->
+      <div class="home-two-actions-grid">
+        <div class="big-action-card primary-themed" onclick="navigateTo('find-ride')">
+          <div class="action-card-left">
+            <div class="action-round-icon">🔍</div>
+            <div class="action-card-text">
+              <h3>Find a Ride</h3>
+              <p>Search peers heading to your stop & split the fare</p>
+            </div>
+          </div>
+          <div class="action-arrow">➔</div>
+        </div>
+
+        <div class="big-action-card" onclick="navigateTo('offer-ride')">
+          <div class="action-card-left">
+            <div class="action-round-icon">🚗</div>
+            <div class="action-card-text">
+              <h3>Offer a Ride</h3>
+              <p>Booking a cab or driving? Fill empty seats & cut costs</p>
+            </div>
+          </div>
+          <div class="action-arrow">➔</div>
+        </div>
+      </div>
+
+      <!-- Popular Routes Section -->
+      <div class="section-header-title-row">
+        <div>
+          <h3 class="section-h3">Popular Campus Routes</h3>
+          <p style="font-size:13px; color:var(--text-muted);">Quick-join active daily student commutes</p>
+        </div>
+        <button class="btn-web-secondary" style="padding:6px 14px; font-size:13px;" onclick="navigateTo('available-rides')">
+          View All Rides ➔
+        </button>
+      </div>
+
+      <div class="routes-grid-3">
+        <div class="route-web-card" onclick="selectQuickChip('Campus Main Gate', 'New Delhi Railway Station', null); searchRides('Campus Main Gate', 'New Delhi Railway Station');">
+          <div class="route-top-info">
+            <div class="route-icon-box">🚆</div>
+            <div class="route-names-col">
+              <h4>Campus ➔ Railway Station</h4>
+              <p>12 km • ~25 mins • 3 rides open</p>
+            </div>
+          </div>
+          <div class="route-bottom-info">
+            <div class="route-price-box">₹100 <span>/ person</span></div>
+            <button class="btn-book-quick">Join Ride</button>
+          </div>
+        </div>
+
+        <div class="route-web-card" onclick="selectQuickChip('Hostel Block C', 'Airport Terminal 3', null); searchRides('Hostel Block C', 'Airport Terminal 3');">
+          <div class="route-top-info">
+            <div class="route-icon-box">✈️</div>
+            <div class="route-names-col">
+              <h4>Campus ➔ Airport (T3)</h4>
+              <p>35 km • ~45 mins • 2 rides open</p>
+            </div>
+          </div>
+          <div class="route-bottom-info">
+            <div class="route-price-box">₹200 <span>/ person</span></div>
+            <button class="btn-book-quick">Join Ride</button>
+          </div>
+        </div>
+
+        <div class="route-web-card" onclick="selectQuickChip('Library Circle', 'Connaught Place', null); searchRides('Library Circle', 'Connaught Place');">
+          <div class="route-top-info">
+            <div class="route-icon-box">🏙️</div>
+            <div class="route-names-col">
+              <h4>Campus ➔ City Centre</h4>
+              <p>18 km • ~30 mins • 4 rides open</p>
+            </div>
+          </div>
+          <div class="route-bottom-info">
+            <div class="route-price-box">₹120 <span>/ person</span></div>
+            <button class="btn-book-quick">Join Ride</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. FIND A RIDE PAGE ================= -->
+    <section class="page" id="page-find-ride">
+      <div class="page-header-row">
+        <div class="page-title-group">
+          <button class="btn-back-nav" onclick="navigateTo('home')">←</button>
+          <div>
+            <h2 class="page-headline">Find a Ride</h2>
+            <p class="page-subheadline">Connect with students leaving from your pickup spot</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="web-feature-banner">
+        <div class="feature-banner-left">
+          <div class="feature-banner-icon">⏱️</div>
+          <div class="feature-banner-text">
+            <h4>Seats Left & Time Matching</h4>
+            <p>Directly solves timing mismatches so you depart on schedule without waiting around.</p>
+          </div>
+        </div>
+        <span class="problem-pill">Timing Mismatch</span>
+      </div>
+
+      <div class="search-form-container">
+        <div class="search-inputs-grid">
+          <div class="form-group-web">
+            <label class="label-web" for="find-from-input">Pickup Location (From)</label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">📍</span>
+              <input class="input-web-control" id="find-from-input" type="text" placeholder="e.g. Campus Main Gate" value="Campus Main Gate">
+            </div>
+          </div>
+
+          <div class="form-group-web">
+            <label class="label-web" for="find-to-input">Drop Destination (To)</label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">🏁</span>
+              <input class="input-web-control" id="find-to-input" type="text" placeholder="e.g. Railway Station" value="New Delhi Railway Station">
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-chips-bar">
+          <span class="chip-label-text">Frequent Hubs:</span>
+          <button class="route-chip-btn active" onclick="selectQuickChip('Campus Main Gate', 'New Delhi Railway Station', this)">Railway Station</button>
+          <button class="route-chip-btn" onclick="selectQuickChip('Hostel Block C', 'Airport Terminal 3', this)">Airport (T3)</button>
+          <button class="route-chip-btn" onclick="selectQuickChip('Library Circle', 'Connaught Place', this)">City Centre</button>
+          <button class="route-chip-btn" onclick="selectQuickChip('Campus Gate 2', 'Cyber Hub', this)">Cyber Hub</button>
+        </div>
+
+        <div class="search-inputs-grid">
+          <div class="form-group-web">
+            <label class="label-web" for="find-date-input">Travel Date</label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">📅</span>
+              <input class="input-web-control" id="find-date-input" type="text" value="Today, 19 Oct">
+            </div>
+          </div>
+
+          <div class="form-group-web">
+            <label class="label-web" for="find-time-input">Desired Departure Time</label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">⏰</span>
+              <input class="input-web-control" id="find-time-input" type="text" value="6:30 PM">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-web-primary" style="width:100%; justify-content:center; padding:16px; margin-top:10px;" onclick="searchRides()">
+          Search Available Rides ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= 5. AVAILABLE RIDES PAGE ================= -->
+    <section class="page" id="page-available-rides">
+      <div class="page-header-row">
+        <div class="page-title-group">
+          <button class="btn-back-nav" onclick="navigateTo('find-ride')">←</button>
+          <div>
+            <h2 class="page-headline">Available Rides</h2>
+            <p class="page-subheadline">Choose a departure that fits your schedule</p>
+          </div>
+        </div>
+        <button class="btn-web-secondary" onclick="navigateTo('offer-ride')">
+          + Offer a New Ride
+        </button>
+      </div>
+
+      <div class="web-feature-banner">
+        <div class="feature-banner-left">
+          <div class="feature-banner-icon">⭐</div>
+          <div class="feature-banner-text">
+            <h4>Peer Ratings & Verified College Identity</h4>
+            <p>Every ride poster displays genuine peer star ratings and college department credentials.</p>
+          </div>
+        </div>
+        <span class="problem-pill">Trust & Safety</span>
+      </div>
+
+      <div class="available-rides-top-bar">
+        <div class="filter-pills-group">
+          <button class="web-filter-btn active" onclick="filterRidesTab('all', this)">All Rides (4)</button>
+          <button class="web-filter-btn" onclick="filterRidesTab('cheapest', this)">Lowest Fare First</button>
+          <button class="web-filter-btn" onclick="filterRidesTab('rating', this)">Top Rated (★ 4.9+)</button>
+        </div>
+        <span style="font-size:13px; color:var(--text-muted);">Showing available campus trips for today</span>
+      </div>
+
+      <!-- 2-Column Responsive Card Grid -->
+      <div class="rides-cards-grid" id="rides-cards-container">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- ================= 6. RIDE DETAILS AND FARE SPLIT ================= -->
+    <section class="page" id="page-ride-details">
+      <div class="page-header-row">
+        <div class="page-title-group">
+          <button class="btn-back-nav" onclick="navigateTo('available-rides')">←</button>
+          <div>
+            <h2 class="page-headline">Ride Details & Fare Split</h2>
+            <p class="page-subheadline">Transparent cost breakdown and safety protocols</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="web-feature-banner">
+        <div class="feature-banner-left">
+          <div class="feature-banner-icon">➗</div>
+          <div class="feature-banner-text">
+            <h4>Automatic Mathematical Fare Split</h4>
+            <p>Completely avoids awkward payment disputes by evenly dividing total cab expenses.</p>
+          </div>
+        </div>
+        <span class="problem-pill">Payment Disputes</span>
+      </div>
+
+      <!-- 2-Column Grid: Left Route & Co-riders, Right Sticky Fare Split -->
+      <div class="details-split-grid">
+        <div class="details-left-col">
+          <!-- Route Itinerary Card -->
+          <div class="web-card">
+            <h3 class="section-h3" style="margin-bottom:14px;">Trip Route & Vehicle</h3>
+
+            <div class="timeline-web-list">
+              <div class="timeline-web-item">
+                <div class="timeline-icon-dot start">●</div>
+                <div>
+                  <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Pickup Point • <span id="details-time">6:30 PM</span></span>
+                  <h4 style="font-size:16px; font-weight:800; color:var(--text-main);" id="details-pickup">Campus Main Gate</h4>
+                  <p style="font-size:12.5px; color:var(--text-muted);">Near Central Cafe & Gate 2 Security Post</p>
+                </div>
+              </div>
+
+              <div class="timeline-web-item">
+                <div class="timeline-icon-dot end">■</div>
+                <div>
+                  <span style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Drop-off Destination</span>
+                  <h4 style="font-size:16px; font-weight:800; color:var(--text-main);" id="details-drop">New Delhi Railway Station</h4>
+                  <p style="font-size:12.5px; color:var(--text-muted);">Paharganj / Ajmeri Gate Side Entrance</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px; padding-top:14px; border-top:1px solid var(--border); display:flex; justify-content:space-between; font-size:13px;">
+              <span>🚗 Vehicle: <strong id="details-vehicle" style="color:var(--text-main);">White Swift Dzire</strong></span>
+              <span style="color:var(--success-text); font-weight:700;">🔒 Boarding OTP Protected</span>
+            </div>
+          </div>
+
+          <!-- Co-riders Joining Card -->
+          <div class="web-card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 class="section-h3">Co-riders Joining This Trip</h3>
+              <span style="font-size:12px; color:var(--text-muted);">All verified students</span>
+            </div>
+
+            <div class="coriders-grid" id="details-coriders-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Sticky Fare Split Calculator -->
+        <div class="fare-sticky-box">
+          <div class="fare-calc-card">
+            <h3 class="section-h3">Transparent Fare Split</h3>
+            <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">Calculated automatically based on joined co-riders.</p>
+
+            <div class="split-math-grid">
+              <div class="math-cell">
+                <div class="math-cell-label">Total Fare</div>
+                <div class="math-cell-val" id="formula-total">₹300</div>
+              </div>
+              <div class="math-operator">÷</div>
+              <div class="math-cell">
+                <div class="math-cell-label">Co-riders</div>
+                <div class="math-cell-val" id="formula-people">3</div>
+              </div>
+              <div class="math-operator">=</div>
+              <div class="math-cell">
+                <div class="math-cell-label">Your Share</div>
+                <div class="math-cell-val highlighted" id="formula-per-person">₹100</div>
+              </div>
+            </div>
+
+            <div class="savings-callout-banner">
+              <span>🎉</span>
+              <p id="details-savings-text">You save ₹200 compared with riding alone!</p>
+            </div>
+
+            <div class="dual-safety-buttons">
+              <button class="btn-web-secondary" style="justify-content:center;" onclick="openShareModal()">
+                <span>📤</span> Share with friend
+              </button>
+              <button class="btn-web-secondary" style="justify-content:center; color:var(--danger); border-color:rgba(239,68,68,0.3); background:var(--danger-light);" onclick="openSOSModal()">
+                <span>🚨</span> Emergency SOS
+              </button>
+            </div>
+
+            <button class="btn-web-primary" id="details-confirm-btn" style="width:100%; justify-content:center; padding:16px;" onclick="confirmCurrentRide()">
+              Confirm Ride (₹100) ➔
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. RIDE CONFIRMED PAGE ================= -->
+    <section class="page" id="page-ride-confirmed">
+      <div class="confirmed-hero-banner">
+        <div class="green-tick-badge">✓</div>
+        <h2>Ride Confirmed!</h2>
+        <p style="font-size:15px; color:var(--text-muted); margin-top:6px;">
+          Your seat is officially reserved. Meet your fellow campus riders at the pickup spot.
+        </p>
+
+        <div class="boarding-otp-strip">
+          <span class="otp-title">Boarding OTP Code:</span>
+          <span class="otp-number" id="confirmed-otp-code">8492</span>
+        </div>
+      </div>
+
+      <div class="web-feature-banner">
+        <div class="feature-banner-left">
+          <div class="feature-banner-icon">📍</div>
+          <div class="feature-banner-text">
+            <h4>Live Trip Sharing & Safety Contacts</h4>
+            <p>Directly solves student safety concerns by letting you broadcast live location with roommates or family.</p>
+          </div>
+        </div>
+        <span class="problem-pill">Night & Campus Safety</span>
+      </div>
+
+      <!-- 2-Column Confirmed Screen Grid -->
+      <div class="confirmed-screen-grid">
+        <!-- Summary Card -->
+        <div class="web-card">
+          <h3 class="section-h3" style="margin-bottom:16px;">Trip Reservation Summary</h3>
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px;">
+              <span style="color:var(--text-muted);">Route</span>
+              <strong id="confirmed-summary-route">Campus ➔ Railway Station</strong>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px;">
+              <span style="color:var(--text-muted);">Departure</span>
+              <strong id="confirmed-summary-time">6:30 PM Today</strong>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px;">
+              <span style="color:var(--text-muted);">Your Fare</span>
+              <strong style="color:var(--primary);" id="confirmed-summary-fare">₹100 per person</strong>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px;">
+              <span style="color:var(--text-muted);">Host / Driver</span>
+              <strong id="confirmed-summary-driver">Aman Verma</strong>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:13.5px;">
+              <span style="color:var(--text-muted);">Vehicle</span>
+              <strong id="confirmed-summary-vehicle">White Swift Dzire (DL 01 AB 1234)</strong>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:24px;">
+            <button class="btn-web-primary" style="flex:1; justify-content:center;" onclick="openChatModal()">
+              <span>💬</span> Chat with Riders
+            </button>
+            <button class="btn-web-secondary" style="flex:1; justify-content:center;" onclick="openShareModal()">
+              <span>📍</span> Share Trip Status
+            </button>
+          </div>
+
+          <button class="btn-web-secondary" style="width:100%; justify-content:center; margin-top:12px;" onclick="navigateTo('home')">
+            Back to Dashboard
+          </button>
+        </div>
+
+        <!-- Rate Co-riders Widget Card -->
+        <div class="web-card" style="text-align:center;">
+          <h3 class="section-h3">Rate Co-riders</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">
+            Help keep the campus network trusted, friendly, and reliable.
+          </p>
+
+          <div class="stars-rating-widget">
+            <span class="star-symbol" onclick="setStarRating(1)">☆</span>
+            <span class="star-symbol" onclick="setStarRating(2)">☆</span>
+            <span class="star-symbol" onclick="setStarRating(3)">☆</span>
+            <span class="star-symbol" onclick="setStarRating(4)">☆</span>
+            <span class="star-symbol" onclick="setStarRating(5)">☆</span>
+          </div>
+
+          <div class="chips-rating-row">
+            <span class="feedback-tag-chip" onclick="toggleFeedbackTag(this)">Punctual</span>
+            <span class="feedback-tag-chip" onclick="toggleFeedbackTag(this)">Friendly</span>
+            <span class="feedback-tag-chip" onclick="toggleFeedbackTag(this)">Safe Driver</span>
+            <span class="feedback-tag-chip" onclick="toggleFeedbackTag(this)">Clean Car</span>
+          </div>
+
+          <button class="btn-web-primary" style="margin:0 auto; padding:12px 28px;" onclick="submitRideRating()">
+            Submit Rating & Feedback
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 8. OFFER A RIDE PAGE ================= -->
+    <section class="page" id="page-offer-ride">
+      <div class="page-header-row">
+        <div class="page-title-group">
+          <button class="btn-back-nav" onclick="navigateTo('home')">←</button>
+          <div>
+            <h2 class="page-headline">Offer a Ride</h2>
+            <p class="page-subheadline">Have empty seats? Share the ride and cut your travel bills</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="web-feature-banner">
+        <div class="feature-banner-left">
+          <div class="feature-banner-icon">🚗</div>
+          <div class="feature-banner-text">
+            <h4>Seat Capacity & Schedule Publishing</h4>
+            <p>Publish empty seats in your car or taxi so peers can share the cost transparently.</p>
+          </div>
+        </div>
+        <span class="problem-pill">Empty Seats & High Cost</span>
+      </div>
+
+      <!-- 2-Column Grid: Form on Left, Live Card Preview on Right -->
+      <div class="offer-two-col-grid">
+        <form class="web-card" onsubmit="handlePostRide(event)">
+          <div class="search-inputs-grid">
+            <div class="form-group-web">
+              <label class="label-web" for="offer-from-input">Pickup Location</label>
+              <div class="input-web-wrapper">
+                <span class="input-web-icon">📍</span>
+                <input class="input-web-control" id="offer-from-input" type="text" placeholder="e.g. Campus Main Gate" value="Campus Main Gate" required>
+              </div>
+            </div>
+
+            <div class="form-group-web">
+              <label class="label-web" for="offer-to-input">Drop Destination</label>
+              <div class="input-web-wrapper">
+                <span class="input-web-icon">🏁</span>
+                <input class="input-web-control" id="offer-to-input" type="text" placeholder="e.g. Airport Terminal 3" value="Indira Gandhi Int'l Airport (T3)" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="search-inputs-grid">
+            <div class="form-group-web">
+              <label class="label-web" for="offer-date-input">Departure Date</label>
+              <div class="input-web-wrapper">
+                <span class="input-web-icon">📅</span>
+                <input class="input-web-control" id="offer-date-input" type="text" value="Today, 19 Oct" required>
+              </div>
+            </div>
+
+            <div class="form-group-web">
+              <label class="label-web" for="offer-time-input">Departure Time</label>
+              <div class="input-web-wrapper">
+                <span class="input-web-icon">⏰</span>
+                <input class="input-web-control" id="offer-time-input" type="text" value="7:30 PM" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group-web">
+            <label class="label-web">Available Empty Seats</label>
+            <div class="seat-counter-bar">
+              <button type="button" class="counter-click-btn" onclick="adjustOfferSeats(-1)">−</button>
+              <span class="counter-value-num" id="offer-seats-display">3</span>
+              <button type="button" class="counter-click-btn" onclick="adjustOfferSeats(1)">+</button>
+              <span style="font-size:13px; color:var(--text-muted);">available passenger seats</span>
+            </div>
+          </div>
+
+          <div class="form-group-web">
+            <label class="label-web" for="offer-fare-input">
+              Estimated Total Trip Fare (₹)
+              <span class="label-sub">Estimated cab fare / fuel</span>
+            </label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">₹</span>
+              <input class="input-web-control" id="offer-fare-input" type="number" value="300" min="50" max="2500" required>
+            </div>
+          </div>
+
+          <div style="background:var(--primary-light); border-radius:var(--radius-md); padding:14px 18px; display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <span style="font-size:13.5px; font-weight:700; color:var(--text-main);">Automatic fair split per person:</span>
+            <strong style="font-size:20px; color:var(--primary);" id="offer-per-seat-price">₹75</strong>
+          </div>
+
+          <button type="submit" class="btn-web-primary" style="width:100%; justify-content:center; padding:16px;">
+            Post Ride to Campus Network ➔
+          </button>
+        </form>
+
+        <!-- Right: Live Interactive Ride Preview -->
+        <div class="preview-sticky-card">
+          <div class="web-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <h3 class="section-h3">Live Ride Card Preview</h3>
+              <span class="problem-pill">How Peers See It</span>
+            </div>
+
+            <div class="ride-card-web" style="border:2px dashed var(--primary); box-shadow:none; padding:18px;">
+              <div class="ride-header-row">
+                <div class="ride-time-tag">
+                  <span>🕒</span> <span id="offer-preview-time">7:30 PM Today</span>
+                </div>
+                <div class="seat-status-tag available">
+                  <span>💺</span> <span id="offer-preview-seats">3 of 3 seats available</span>
+                </div>
+              </div>
+
+              <div class="ride-route-headline" id="offer-preview-route">
+                Campus Main Gate ➔ Airport (T3)
+              </div>
+
+              <div class="fare-breakdown-box">
+                <div>
+                  <div style="font-size:11.5px; color:var(--text-muted);">Split price:</div>
+                  <div class="fare-price-display"><span id="offer-preview-seat-price">₹75</span> <span>/ seat</span></div>
+                </div>
+                <div class="savings-tag-pill">Zero Commission</div>
+              </div>
+
+              <div class="ride-poster-row" style="padding-top:10px;">
+                <div class="poster-flex-info">
+                  <div class="poster-avatar-box">RS</div>
+                  <div class="poster-text-details">
+                    <h5>Rahul Sharma <span style="color:var(--primary);">✓</span></h5>
+                    <p>★ 4.9 • IIT Delhi Verified</p>
+                  </div>
+                </div>
+                <span class="problem-pill" style="background:var(--surface-alt); color:var(--text-muted);">Your Ride</span>
+              </div>
+            </div>
+
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-top:14px;">
+              ℹ️ RideMates enforces strict non-profit student cost recovery. Posting is free with no platform commission cuts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXTRA 1: MY RIDES PAGE ================= -->
+    <section class="page" id="page-my-rides">
+      <div class="page-header-row">
+        <div class="page-title-group">
+          <button class="btn-back-nav" onclick="navigateTo('home')">←</button>
+          <div>
+            <h2 class="page-headline">My Rides</h2>
+            <p class="page-subheadline">Manage your upcoming bookings and past trips</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs-web-switcher">
+        <button class="tab-nav-btn active" id="tab-my-upcoming" onclick="toggleMyRidesTab('upcoming')">
+          Upcoming Rides
+        </button>
+        <button class="tab-nav-btn" id="tab-my-past" onclick="toggleMyRidesTab('past')">
+          Past Trips History
+        </button>
+      </div>
+
+      <div class="rides-cards-grid" id="my-rides-list-container">
+        <!-- Rendered in app.js -->
+      </div>
+    </section>
+
+    <!-- ================= EXTRA 2: PROFILE PAGE ================= -->
+    <section class="page" id="page-profile">
+      <div class="page-header-row">
+        <div class="page-title-group">
+          <button class="btn-back-nav" onclick="navigateTo('home')">←</button>
+          <div>
+            <h2 class="page-headline">Student Profile</h2>
+            <p class="page-subheadline">Your verified campus credentials and mobility impact</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-dashboard-grid">
+        <!-- Left Profile Card -->
+        <div class="profile-card-col">
+          <div class="profile-big-avatar">RS</div>
+          <h3 style="font-size:22px; font-weight:800; color:var(--text-main);">Rahul Sharma</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">rahul.s@campus.edu.in</p>
+
+          <div class="campus-verified-tag" style="margin-top:12px;">
+            <span>🛡️ Verified Student • IIT Delhi</span>
+          </div>
+
+          <div class="profile-stats-row">
+            <div class="profile-stat-item">
+              <div class="profile-stat-number">★ 4.9</div>
+              <div class="profile-stat-desc">24 Trips</div>
+            </div>
+            <div class="profile-stat-item">
+              <div class="profile-stat-number" style="color:var(--success-text);">₹4,250</div>
+              <div class="profile-stat-desc">Money Saved</div>
+            </div>
+            <div class="profile-stat-item">
+              <div class="profile-stat-number" style="color:var(--primary);">38 kg</div>
+              <div class="profile-stat-desc">CO2 Cut</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Credentials & Settings -->
+        <div class="web-card">
+          <h3 class="section-h3" style="margin-bottom:16px;">Safety & Verification Records</h3>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--border);">
+            <div>
+              <strong style="font-size:14px;">Institutional Academic Enrollment</strong>
+              <div style="font-size:12px; color:var(--text-muted);">Verified via `@campus.edu.in` token check</div>
+            </div>
+            <span style="color:var(--success-text); font-weight:800; font-size:13px;">✓ Active & Verified</span>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--border);">
+            <div>
+              <strong style="font-size:14px;">Emergency SOS Contact</strong>
+              <div style="font-size:12px; color:var(--text-muted);">Mom (+91 98111 22334) • Dispatched during safety alerts</div>
+            </div>
+            <button class="btn-web-secondary" style="padding:6px 12px; font-size:12px;" onclick="showToast('Emergency contact confirmed', '✓')">Edit</button>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0;">
+            <div>
+              <strong style="font-size:14px;">Campus Control Room Hotlink</strong>
+              <div style="font-size:12px; color:var(--text-muted);">Instant vehicle beacon connected to campus patrol</div>
+            </div>
+            <span style="color:var(--primary); font-weight:800; font-size:13px;">Enabled</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Modal: Chat with Co-riders -->
+  <div class="web-modal-overlay" id="chat-modal">
+    <div class="web-modal-dialog">
+      <div class="modal-header-row">
+        <h3 class="modal-title-text">💬 Co-riders Group Chat</h3>
+        <button class="modal-close-icon" onclick="closeChatModal()">✕</button>
+      </div>
+
+      <div class="chat-window" id="chat-messages-container">
+        <!-- Messages rendered by app.js -->
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <input class="input-web-control" id="chat-input-text" type="text" placeholder="Type a message to your co-riders..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+        <button class="btn-web-primary" style="padding:0 22px;" onclick="sendChatMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Modal: Emergency SOS Alert -->
+  <div class="web-modal-overlay" id="sos-modal">
+    <div class="web-modal-dialog">
+      <div class="modal-header-row">
+        <h3 class="modal-title-text" style="color:var(--danger);">🚨 Emergency Safety Dispatch</h3>
+        <button class="modal-close-icon" onclick="closeSOSModal()">✕</button>
+      </div>
+
+      <div style="text-align:center; padding:10px 0;">
+        <div style="width:68px; height:68px; border-radius:999px; background:var(--danger-light); color:var(--danger); display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 16px auto;">
+          🛡️
+        </div>
+        <h4 style="font-size:17px; font-weight:800; margin-bottom:6px;">Instant Campus Emergency Protocol</h4>
+        <p style="font-size:13.5px; color:var(--text-muted); line-height:1.5; margin-bottom:20px;">
+          Activating this alert immediately broadcasts your live vehicle coordinates, driver identity, car registration number, and co-rider list to your emergency contact and the campus control room.
+        </p>
+
+        <button class="btn-web-primary" style="background:var(--danger); width:100%; justify-content:center; padding:14px;" onclick="triggerEmergencyAlert()">
+          Broadcast SOS Alert Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Modal: Share Trip Status -->
+  <div class="web-modal-overlay" id="share-modal">
+    <div class="web-modal-dialog">
+      <div class="modal-header-row">
+        <h3 class="modal-title-text">📤 Share Live Trip Status</h3>
+        <button class="modal-close-icon" onclick="closeShareModal()">✕</button>
+      </div>
+
+      <div style="text-align:center; padding:10px 0;">
+        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:16px;">
+          Anyone with this private link can monitor your vehicle's live route in real time until you arrive safely at your destination.
+        </p>
+
+        <div style="background:var(--surface-alt); border:1px dashed var(--border); padding:12px; border-radius:var(--radius-md); font-size:13px; font-weight:600; color:var(--text-main); margin-bottom:20px;">
+          https://ridemates.campus/track/DL01AB1234
+        </div>
+
+        <button class="btn-web-primary" style="width:100%; justify-content:center; padding:14px;" onclick="copyTripLink()">
+          Copy Live Tracking Link 📋
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo Pitch Guide / Feature Problem Matrix Overlay -->
+  <div class="web-modal-overlay" id="pitch-guide-modal">
+    <div class="web-modal-dialog" style="max-width:680px;">
+      <div class="modal-header-row">
+        <h3 class="modal-title-text">💡 RideMates: Features & Problems Solved</h3>
+        <button class="modal-close-icon" onclick="togglePitchGuide(false)">✕</button>
+      </div>
+
+      <p style="font-size:13.5px; color:var(--text-muted); line-height:1.5;">
+        This prototype demonstrates the 5 fundamental problems solved by RideMates for student carpooling:
+      </p>
+
+      <table class="pitch-table-web">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Problem It Solves</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Verified college email</td>
+            <td>Safety and trust</td>
+          </tr>
+          <tr>
+            <td>Ratings</td>
+            <td>Trust & peer accountability</td>
+          </tr>
+          <tr>
+            <td>Automatic fare split</td>
+            <td>Payment disputes & awkwardness</td>
+          </tr>
+          <tr>
+            <td>Share trip & Emergency contact</td>
+            <td>Night & campus safety</td>
+          </tr>
+          <tr>
+            <td>Seats left & time on each card</td>
+            <td>Timing mismatch</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background:var(--surface-alt); padding:16px; border-radius:var(--radius-md); font-size:12.5px; line-height:1.6; margin-top:16px;">
+        <strong>Presentation Walkthrough Flow:</strong><br>
+        1. <strong>Welcome</strong> ➔ Click "Get Started"<br>
+        2. <strong>Sign Up</strong> ➔ Pre-filled student credentials ➔ Click "Verify and Continue"<br>
+        3. <strong>Home</strong> ➔ Explore popular routes ➔ Click "Find a Ride"<br>
+        4. <strong>Available Rides</strong> ➔ Browse cards with seats left & split fare ➔ Click "Join Ride"<br>
+        5. <strong>Ride Details & Fare Split</strong> ➔ See dynamic calculation: <code>₹300 ÷ 3 = ₹100 each</code> (saving ₹200) ➔ Click "Confirm Ride"<br>
+        6. <strong>Ride Confirmed</strong> ➔ View OTP, test interactive chat with co-riders, test 5-star ratings!
+      </div>
+
+      <button class="btn-web-primary" style="width:100%; justify-content:center; margin-top:20px; padding:14px;" onclick="togglePitchGuide(false)">
+        Return to Website ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="web-toast" id="toast-notice">
+    <span id="toast-icon">✓</span>
+    <span id="toast-message">Action successful</span>
+  </div>
+
+  <!-- Modern Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner-max">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="brand-icon" style="width:34px; height:34px; font-size:16px;">RM</div>
+        <div>
+          <span style="font-weight:800; font-size:15px; color:var(--text-main);">RideMates</span>
+          <span style="font-size:12px; color:var(--text-muted); display:block;">Same route. Same time. Split the fare.</span>
+        </div>
+      </div>
+
+      <div class="footer-links-group">
+        <a class="footer-link" onclick="navigateTo('home')">Home</a>
+        <a class="footer-link" onclick="navigateTo('find-ride')">Find Ride</a>
+        <a class="footer-link" onclick="navigateTo('offer-ride')">Offer Ride</a>
+        <a class="footer-link" onclick="navigateTo('my-rides')">My Rides</a>
+        <a class="footer-link" onclick="navigateTo('profile')">Profile</a>
+        <a class="footer-link" onclick="togglePitchGuide(true)">Feature Matrix</a>
+      </div>
+
+      <div class="footer-copy">
+        © 2026 RideMates. Campus student mobility prototype.
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
