@@ -52,16 +52,84 @@
       </nav>
 
       <div class="nav-actions">
-        <div class="user-profile-badge" onclick="navigateTo('profile')" title="View Student Profile">
-          <div class="user-avatar-circle" id="nav-user-avatar">RS</div>
-          <div class="user-info-snippet">
-            <span class="user-snippet-name" id="nav-user-name">Rahul Sharma</span>
-            <span class="user-snippet-badge">🛡️ IIT Delhi Verified</span>
+        <!-- Logged Out Actions (Shown when logged out) -->
+        <div class="nav-auth-group" id="nav-auth-group" style="display:none;">
+          <button class="btn-nav-login" onclick="navigateTo('login')">Log In</button>
+          <button class="btn-nav-signup" onclick="navigateTo('signup')">Sign Up</button>
+        </div>
+
+        <!-- Logged In User Dropdown (Shown when logged in) -->
+        <div class="user-dropdown-container" id="user-dropdown-container">
+          <div class="user-profile-badge" onclick="toggleUserDropdown()" title="Account & Settings">
+            <div class="user-avatar-circle" id="nav-user-avatar">RS</div>
+            <div class="user-info-snippet">
+              <span class="user-snippet-name" id="nav-user-name">Rahul Sharma</span>
+              <span class="user-snippet-badge">🛡️ Verified Student ▾</span>
+            </div>
+          </div>
+
+          <!-- Dropdown Popup Menu -->
+          <div class="user-dropdown-menu" id="user-dropdown-menu">
+            <div class="dropdown-user-header">
+              <h5 id="dropdown-user-name">Rahul Sharma</h5>
+              <p id="dropdown-user-email">rahul.s@campus.edu.in</p>
+              <span class="problem-pill" style="margin-top:4px; display:inline-block; font-size:10px;">IIT Delhi Verified</span>
+            </div>
+            <button class="dropdown-link-item" onclick="navigateTo('profile')">
+              <span>👤</span> View Profile
+            </button>
+            <button class="dropdown-link-item" onclick="navigateTo('my-rides')">
+              <span>📋</span> My Booked Rides
+            </button>
+            <button class="dropdown-link-item" onclick="navigateTo('offer-ride')">
+              <span>🚗</span> Post / Offer a Ride
+            </button>
+            <button class="dropdown-link-item dropdown-logout-item" onclick="handleLogout()">
+              <span>🚪</span> Log Out
+            </button>
           </div>
         </div>
+
+        <!-- Mobile Menu Toggle Button (Visible on mobile screens) -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileDrawer()" aria-label="Toggle Navigation Menu">
+          ☰
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Slide-over Drawer -->
+  <div class="mobile-drawer-overlay" id="mobile-drawer-overlay" onclick="closeMobileDrawer()">
+    <div class="mobile-nav-drawer" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="brand-icon" style="width:32px; height:32px; font-size:15px;">RM</div>
+          <span style="font-weight:800; font-size:17px; color:var(--text-main);">RideMates</span>
+        </div>
+        <button class="modal-close-icon" onclick="closeMobileDrawer()">✕</button>
+      </div>
+      <ul class="drawer-links-list">
+        <li><button class="drawer-link-btn active" data-page="home" onclick="navigateTo('home'); closeMobileDrawer();"><i>🏠</i> Home</button></li>
+        <li><button class="drawer-link-btn" data-page="find-ride" onclick="navigateTo('find-ride'); closeMobileDrawer();"><i>🔍</i> Find a Ride</button></li>
+        <li><button class="drawer-link-btn" data-page="offer-ride" onclick="navigateTo('offer-ride'); closeMobileDrawer();"><i>🚗</i> Offer a Ride</button></li>
+        <li><button class="drawer-link-btn" data-page="my-rides" onclick="navigateTo('my-rides'); closeMobileDrawer();"><i>📋</i> My Booked Rides</button></li>
+        <li><button class="drawer-link-btn" data-page="profile" onclick="navigateTo('profile'); closeMobileDrawer();"><i>👤</i> Student Profile</button></li>
+        <li><button class="drawer-link-btn" onclick="togglePitchGuide(true); closeMobileDrawer();"><i>💡</i> Pitch & Feature Guide</button></li>
+      </ul>
+      <div style="margin-top:auto; padding-top:16px; border-top:1px solid var(--border);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:12px; font-weight:700; color:var(--text-muted);">Theme Color:</span>
+          <div class="theme-switch-group">
+            <button class="theme-pill-btn blue-btn active" onclick="toggleTheme('blue')">Blue</button>
+            <button class="theme-pill-btn yellow-btn" onclick="toggleTheme('yellow')">Yellow</button>
+          </div>
+        </div>
+        <div id="drawer-auth-section">
+          <!-- Populated by app.js: Log in / Log out button -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Website Content Container -->
   <main class="web-main-container">
@@ -82,6 +150,9 @@
           <div class="hero-cta-group">
             <button class="btn-web-primary" onclick="navigateTo('signup')">
               Get Started (Join Network) ➔
+            </button>
+            <button class="btn-web-secondary" onclick="navigateTo('login')">
+              Log In to Existing Account 🔑
             </button>
             <button class="btn-web-secondary" onclick="navigateTo('find-ride')">
               Browse Open Rides 🔍
@@ -174,6 +245,68 @@
       </div>
     </section>
 
+    <!-- ================= LOGIN PAGE ================= -->
+    <section class="page" id="page-login">
+      <div class="signup-layout-web">
+        <div class="page-header-row" style="justify-content:center; text-align:center; margin-bottom:16px;">
+          <div>
+            <h2 class="page-headline">Student Log In</h2>
+            <p class="page-subheadline">Log in to your verified campus carpool account</p>
+          </div>
+        </div>
+
+        <!-- 1-Click Demo Account Switcher -->
+        <div class="quick-accounts-box">
+          <h5>⚡ Demo 1-Click Fast Login</h5>
+          <div class="accounts-pills-row">
+            <button type="button" class="account-pill-btn" onclick="quickLogin('rahul')">
+              <span class="pill-avatar-micro">RS</span>
+              <span>Rahul Sharma (IIT Delhi)</span>
+            </button>
+            <button type="button" class="account-pill-btn" onclick="quickLogin('ananya')">
+              <span class="pill-avatar-micro" style="background:#ec4899;">AI</span>
+              <span>Ananya Iyer (IIT Delhi)</span>
+            </button>
+          </div>
+        </div>
+
+        <form class="form-web-card" onsubmit="handleLogin(event)">
+          <div class="form-group-web">
+            <label class="label-web" for="input-login-email">
+              College Email
+              <span class="label-sub">.edu.in account</span>
+            </label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">🎓</span>
+              <input class="input-web-control" id="input-login-email" type="email" placeholder="rahul.s@campus.edu.in" value="rahul.s@campus.edu.in" required>
+            </div>
+          </div>
+
+          <div class="form-group-web">
+            <label class="label-web" for="input-login-password">
+              Password / OTP
+              <span class="label-sub">Campus Auth Token</span>
+            </label>
+            <div class="input-web-wrapper">
+              <span class="input-web-icon">🔒</span>
+              <input class="input-web-control" id="input-login-password" type="password" value="student123" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-web-primary" style="width:100%; justify-content:center; padding:16px; margin-top:10px;">
+            Log In to RideMates ➔
+          </button>
+
+          <div style="text-align:center; margin-top:20px; font-size:13.5px; color:var(--text-muted);">
+            Don't have an account yet? 
+            <button type="button" style="background:none; border:none; color:var(--primary); font-weight:700; cursor:pointer;" onclick="navigateTo('signup')">
+              Sign Up here
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <!-- ================= 2. SIGN UP PAGE ================= -->
     <section class="page" id="page-signup">
       <div class="signup-layout-web">
@@ -234,6 +367,13 @@
           <button type="submit" class="btn-web-primary" style="width:100%; justify-content:center; padding:16px;">
             Verify and Continue ➔
           </button>
+
+          <div style="text-align:center; margin-top:20px; font-size:13.5px; color:var(--text-muted);">
+            Already have an account? 
+            <button type="button" style="background:none; border:none; color:var(--primary); font-weight:700; cursor:pointer;" onclick="navigateTo('login')">
+              Log In here
+            </button>
+          </div>
         </form>
       </div>
     </section>
@@ -862,9 +1002,9 @@
       <div class="profile-dashboard-grid">
         <!-- Left Profile Card -->
         <div class="profile-card-col">
-          <div class="profile-big-avatar">RS</div>
-          <h3 style="font-size:22px; font-weight:800; color:var(--text-main);">Rahul Sharma</h3>
-          <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">rahul.s@campus.edu.in</p>
+          <div class="profile-big-avatar" id="profile-avatar">RS</div>
+          <h3 style="font-size:22px; font-weight:800; color:var(--text-main);" id="profile-name">Rahul Sharma</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:2px;" id="profile-email">rahul.s@campus.edu.in</p>
 
           <div class="campus-verified-tag" style="margin-top:12px;">
             <span>🛡️ Verified Student • IIT Delhi</span>
@@ -872,18 +1012,23 @@
 
           <div class="profile-stats-row">
             <div class="profile-stat-item">
-              <div class="profile-stat-number">★ 4.9</div>
-              <div class="profile-stat-desc">24 Trips</div>
+              <div class="profile-stat-number" id="profile-rating">★ 4.9</div>
+              <div class="profile-stat-desc" id="profile-rides">24 Trips</div>
             </div>
             <div class="profile-stat-item">
-              <div class="profile-stat-number" style="color:var(--success-text);">₹4,250</div>
+              <div class="profile-stat-number" style="color:var(--success-text);" id="profile-saved">₹4,250</div>
               <div class="profile-stat-desc">Money Saved</div>
             </div>
             <div class="profile-stat-item">
-              <div class="profile-stat-number" style="color:var(--primary);">38 kg</div>
+              <div class="profile-stat-number" style="color:var(--primary);" id="profile-co2">38 kg</div>
               <div class="profile-stat-desc">CO2 Cut</div>
             </div>
           </div>
+
+          <!-- Direct Logout Button on Profile Card -->
+          <button class="btn-profile-logout" onclick="handleLogout()">
+            <span>🚪</span> Log Out of RideMates
+          </button>
         </div>
 
         <!-- Right Credentials & Settings -->
@@ -922,6 +1067,7 @@
   <!-- Interactive Modal: Chat with Co-riders -->
   <div class="web-modal-overlay" id="chat-modal">
     <div class="web-modal-dialog">
+      <div class="modal-drag-handle"></div>
       <div class="modal-header-row">
         <h3 class="modal-title-text">💬 Co-riders Group Chat</h3>
         <button class="modal-close-icon" onclick="closeChatModal()">✕</button>
@@ -941,6 +1087,7 @@
   <!-- Interactive Modal: Emergency SOS Alert -->
   <div class="web-modal-overlay" id="sos-modal">
     <div class="web-modal-dialog">
+      <div class="modal-drag-handle"></div>
       <div class="modal-header-row">
         <h3 class="modal-title-text" style="color:var(--danger);">🚨 Emergency Safety Dispatch</h3>
         <button class="modal-close-icon" onclick="closeSOSModal()">✕</button>
@@ -965,6 +1112,7 @@
   <!-- Interactive Modal: Share Trip Status -->
   <div class="web-modal-overlay" id="share-modal">
     <div class="web-modal-dialog">
+      <div class="modal-drag-handle"></div>
       <div class="modal-header-row">
         <h3 class="modal-title-text">📤 Share Live Trip Status</h3>
         <button class="modal-close-icon" onclick="closeShareModal()">✕</button>
@@ -989,6 +1137,7 @@
   <!-- Demo Pitch Guide / Feature Problem Matrix Overlay -->
   <div class="web-modal-overlay" id="pitch-guide-modal">
     <div class="web-modal-dialog" style="max-width:680px;">
+      <div class="modal-drag-handle"></div>
       <div class="modal-header-row">
         <h3 class="modal-title-text">💡 RideMates: Features & Problems Solved</h3>
         <button class="modal-close-icon" onclick="togglePitchGuide(false)">✕</button>
@@ -1031,12 +1180,13 @@
 
       <div style="background:var(--surface-alt); padding:16px; border-radius:var(--radius-md); font-size:12.5px; line-height:1.6; margin-top:16px;">
         <strong>Presentation Walkthrough Flow:</strong><br>
-        1. <strong>Welcome</strong> ➔ Click "Get Started"<br>
-        2. <strong>Sign Up</strong> ➔ Pre-filled student credentials ➔ Click "Verify and Continue"<br>
+        1. <strong>Welcome</strong> ➔ Click "Get Started" (or "Log In")<br>
+        2. <strong>Sign Up / Log In</strong> ➔ Use 1-Click Demo accounts or type your email ➔ Log in<br>
         3. <strong>Home</strong> ➔ Explore popular routes ➔ Click "Find a Ride"<br>
         4. <strong>Available Rides</strong> ➔ Browse cards with seats left & split fare ➔ Click "Join Ride"<br>
         5. <strong>Ride Details & Fare Split</strong> ➔ See dynamic calculation: <code>₹300 ÷ 3 = ₹100 each</code> (saving ₹200) ➔ Click "Confirm Ride"<br>
-        6. <strong>Ride Confirmed</strong> ➔ View OTP, test interactive chat with co-riders, test 5-star ratings!
+        6. <strong>Ride Confirmed</strong> ➔ View OTP, test interactive chat with co-riders, test 5-star ratings!<br>
+        7. <strong>Log Out</strong> ➔ Click user avatar in navbar ➔ Click "Log Out" (or click "Log Out" in Profile page)
       </div>
 
       <button class="btn-web-primary" style="width:100%; justify-content:center; margin-top:20px; padding:14px;" onclick="togglePitchGuide(false)">
@@ -1076,6 +1226,30 @@
       </div>
     </div>
   </footer>
+
+  <!-- Fixed Mobile Bottom Navigation Bar (Active on Mobile Phones <= 768px) -->
+  <nav class="mobile-bottom-bar" id="mobile-bottom-bar">
+    <button class="mobile-bottom-item active" data-page="home" onclick="navigateTo('home')">
+      <span class="bottom-icon">🏠</span>
+      <span class="bottom-label">Home</span>
+    </button>
+    <button class="mobile-bottom-item" data-page="find-ride" onclick="navigateTo('find-ride')">
+      <span class="bottom-icon">🔍</span>
+      <span class="bottom-label">Find</span>
+    </button>
+    <button class="mobile-bottom-item" data-page="offer-ride" onclick="navigateTo('offer-ride')">
+      <span class="bottom-icon">🚗</span>
+      <span class="bottom-label">Offer</span>
+    </button>
+    <button class="mobile-bottom-item" data-page="my-rides" onclick="navigateTo('my-rides')">
+      <span class="bottom-icon">📋</span>
+      <span class="bottom-label">My Rides</span>
+    </button>
+    <button class="mobile-bottom-item" data-page="profile" onclick="navigateTo('profile')">
+      <span class="bottom-icon">👤</span>
+      <span class="bottom-label">Profile</span>
+    </button>
+  </nav>
 
   <script src="app.js"></script>
 </body>
