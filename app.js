@@ -3,19 +3,38 @@
  * "Same route. Same time. Split the fare."
  */
 
-// Global Application State
-const state = {
-  currentUser: {
+// Preset student accounts for instant demo testing
+const presetAccounts = {
+  rahul: {
     name: "Rahul Sharma",
     email: "rahul.s@campus.edu.in",
     phone: "+91 98765 43210",
     college: "IIT Delhi",
+    branch: "Computer Science '25",
     rating: 4.9,
     ridesCount: 24,
     totalSaved: 4250,
     co2Saved: 38,
     isVerified: true
   },
+  ananya: {
+    name: "Ananya Iyer",
+    email: "ananya.i@campus.edu.in",
+    phone: "+91 98112 33445",
+    college: "IIT Delhi",
+    branch: "Biotech '25",
+    rating: 4.9,
+    ridesCount: 18,
+    totalSaved: 3100,
+    co2Saved: 28,
+    isVerified: true
+  }
+};
+
+// Global Application State
+const state = {
+  isLoggedIn: true, // Default to logged in as Rahul Sharma, can be logged out anytime
+  currentUser: { ...presetAccounts.rahul },
   activePage: "welcome",
   currentTheme: "blue",
   soundEnabled: true,
@@ -181,6 +200,18 @@ function playSound(type = "click") {
 // Navigation System
 function navigateTo(pageId) {
   playSound("click");
+
+  // Authentication Guard: Check if protected page requires login
+  const protectedPages = ["profile", "my-rides", "offer-ride"];
+  if (protectedPages.includes(pageId) && !state.isLoggedIn) {
+    showToast("Please log in with your college email first", "🔒");
+    navigateTo("login");
+    return;
+  }
+
+  // Close dropdown if open
+  closeUserDropdown();
+
   state.activePage = pageId;
 
   // Toggle page visibility
@@ -211,20 +242,43 @@ function navigateTo(pageId) {
     updateHomeData();
   } else if (pageId === "offer-ride") {
     updateOfferEstimate();
+  } else if (pageId === "profile") {
+    updateProfileData();
   }
 }
 
-// Update top navbar active indicators
+// Update top navbar, mobile bottom bar, and drawer active indicators
 function updateNavbarLinks(pageId) {
   const navItems = document.querySelectorAll(".nav-link-item");
   navItems.forEach(item => {
-    const target = item.getAttribute("data-page");
-    if (target === pageId) {
-      item.classList.add("active");
-    } else {
-      item.classList.remove("active");
-    }
+    item.classList.toggle("active", item.getAttribute("data-page") === pageId);
   });
+
+  const mobileBottomItems = document.querySelectorAll(".mobile-bottom-item");
+  mobileBottomItems.forEach(item => {
+    item.classList.toggle("active", item.getAttribute("data-page") === pageId);
+  });
+
+  const drawerLinks = document.querySelectorAll(".drawer-link-btn");
+  drawerLinks.forEach(item => {
+    item.classList.toggle("active", item.getAttribute("data-page") === pageId);
+  });
+}
+
+// Mobile Slide-over Drawer Controls
+function toggleMobileDrawer() {
+  playSound("click");
+  const overlay = document.getElementById("mobile-drawer-overlay");
+  if (overlay) {
+    overlay.classList.toggle("active");
+  }
+}
+
+function closeMobileDrawer() {
+  const overlay = document.getElementById("mobile-drawer-overlay");
+  if (overlay) {
+    overlay.classList.remove("active");
+  }
 }
 
 // Toast notification display
@@ -251,16 +305,16 @@ function toggleTheme(themeName) {
   state.currentTheme = themeName;
   document.documentElement.setAttribute("data-theme", themeName);
 
-  const btnYellow = document.getElementById("theme-toggle-yellow");
-  const btnBlue = document.getElementById("theme-toggle-blue");
+  const btnYellow = document.querySelectorAll(".theme-toggle-yellow, .yellow-btn");
+  const btnBlue = document.querySelectorAll(".theme-toggle-blue, .blue-btn");
 
   if (themeName === "yellow") {
-    btnYellow.classList.add("active");
-    btnBlue.classList.remove("active");
+    btnYellow.forEach(b => b.classList.add("active"));
+    btnBlue.forEach(b => b.classList.remove("active"));
     showToast("Theme switched to Taxi Yellow", "🚕");
   } else {
-    btnBlue.classList.add("active");
-    btnYellow.classList.remove("active");
+    btnBlue.forEach(b => b.classList.add("active"));
+    btnYellow.forEach(b => b.classList.remove("active"));
     showToast("Theme switched to Electric Blue", "⚡");
   }
 }
@@ -277,6 +331,101 @@ function togglePitchGuide(show = true) {
   }
 }
 
+// ================= AUTHENTICATION HANDLERS =================
+
+// Update Navbar and User Header based on Login status
+function updateAuthUI() {
+  const navAuthGroup = document.getElementById("nav-auth-group");
+  const userDropdownContainer = document.getElementById("user-dropdown-container");
+  const drawerAuth = document.getElementById("drawer-auth-section");
+
+  const navUserName = document.getElementById("nav-user-name");
+  const navUserAvatar = document.getElementById("nav-user-avatar");
+  const dropdownUserName = document.getElementById("dropdown-user-name");
+  const dropdownUserEmail = document.getElementById("dropdown-user-email");
+
+  const initials = state.currentUser.name.split(" ").map(n => n[0]).join("");
+
+  if (state.isLoggedIn) {
+    if (navAuthGroup) navAuthGroup.style.display = "none";
+    if (userDropdownContainer) userDropdownContainer.style.display = "block";
+
+    if (navUserName) navUserName.textContent = state.currentUser.name;
+    if (navUserAvatar) navUserAvatar.textContent = initials;
+    if (dropdownUserName) dropdownUserName.textContent = state.currentUser.name;
+    if (dropdownUserEmail) dropdownUserEmail.textContent = state.currentUser.email;
+
+    if (drawerAuth) {
+      drawerAuth.innerHTML = `
+        <button class="btn-profile-logout" style="margin-top:0;" onclick="handleLogout(); closeMobileDrawer();">
+          <span>🚪</span> Log Out (${state.currentUser.name.split(' ')[0]})
+        </button>
+      `;
+    }
+  } else {
+    if (navAuthGroup) navAuthGroup.style.display = "flex";
+    if (userDropdownContainer) userDropdownContainer.style.display = "none";
+
+    if (drawerAuth) {
+      drawerAuth.innerHTML = `
+        <div style="display:flex; gap:8px;">
+          <button class="btn-web-secondary" style="flex:1; justify-content:center; padding:10px;" onclick="navigateTo('login'); closeMobileDrawer();">Log In</button>
+          <button class="btn-web-primary" style="flex:1; justify-content:center; padding:10px;" onclick="navigateTo('signup'); closeMobileDrawer();">Sign Up</button>
+        </div>
+      `;
+    }
+  }
+
+  updateProfileData();
+  updateHomeData();
+}
+
+// User Profile Dropdown Toggle
+function toggleUserDropdown() {
+  playSound("click");
+  const menu = document.getElementById("user-dropdown-menu");
+  if (menu) {
+    menu.classList.toggle("show");
+  }
+}
+
+function closeUserDropdown() {
+  const menu = document.getElementById("user-dropdown-menu");
+  if (menu) {
+    menu.classList.remove("show");
+  }
+}
+
+// Handle Login Form Submission
+function handleLogin(e) {
+  if (e) e.preventDefault();
+  const emailInput = document.getElementById("input-login-email");
+  const emailVal = emailInput ? emailInput.value.trim() : "rahul.s@campus.edu.in";
+
+  // Check if matched preset account or custom
+  if (emailVal.toLowerCase().includes("ananya")) {
+    state.currentUser = { ...presetAccounts.ananya };
+  } else {
+    state.currentUser = { ...presetAccounts.rahul, email: emailVal };
+  }
+
+  state.isLoggedIn = true;
+  updateAuthUI();
+  showToast(`Welcome back, ${state.currentUser.name}! Logged in.`, "🎓");
+  navigateTo("home");
+}
+
+// 1-Click Quick Login as Preset Student
+function quickLogin(accountKey) {
+  if (presetAccounts[accountKey]) {
+    state.currentUser = { ...presetAccounts[accountKey] };
+    state.isLoggedIn = true;
+    updateAuthUI();
+    showToast(`Logged in as ${state.currentUser.name}`, "👤");
+    navigateTo("home");
+  }
+}
+
 // Sign Up Form Submission
 function handleSignUp(e) {
   if (e) e.preventDefault();
@@ -288,22 +437,48 @@ function handleSignUp(e) {
   if (emailInput && emailInput.value.trim()) state.currentUser.email = emailInput.value.trim();
   if (phoneInput && phoneInput.value.trim()) state.currentUser.phone = phoneInput.value.trim();
 
-  showToast("College Email Verified Successfully!", "🛡️");
+  state.isLoggedIn = true;
+  updateAuthUI();
+  showToast("College Email Verified & Logged In!", "🛡️");
   navigateTo("home");
+}
+
+// Handle Logout
+function handleLogout() {
+  playSound("click");
+  state.isLoggedIn = false;
+  closeUserDropdown();
+  updateAuthUI();
+  showToast("Logged out of RideMates", "👋");
+  navigateTo("welcome");
 }
 
 // Update Home Page Header & User Info
 function updateHomeData() {
   const greetingEl = document.getElementById("home-greeting-name");
-  const navUserSnippet = document.getElementById("nav-user-name");
-  const navUserAvatar = document.getElementById("nav-user-avatar");
-
   if (greetingEl) greetingEl.textContent = state.currentUser.name;
-  if (navUserSnippet) navUserSnippet.textContent = state.currentUser.name;
-  if (navUserAvatar) {
+}
+
+// Update Profile Page Data
+function updateProfileData() {
+  const profileName = document.getElementById("profile-name");
+  const profileEmail = document.getElementById("profile-email");
+  const profileAvatar = document.getElementById("profile-avatar");
+  const profileSaved = document.getElementById("profile-saved");
+  const profileRides = document.getElementById("profile-rides");
+  const profileRating = document.getElementById("profile-rating");
+  const profileCO2 = document.getElementById("profile-co2");
+
+  if (profileName) profileName.textContent = state.currentUser.name;
+  if (profileEmail) profileEmail.textContent = state.currentUser.email;
+  if (profileAvatar) {
     const initials = state.currentUser.name.split(" ").map(n => n[0]).join("");
-    navUserAvatar.textContent = initials || "RS";
+    profileAvatar.textContent = initials || "RS";
   }
+  if (profileSaved) profileSaved.textContent = `₹${state.currentUser.totalSaved.toLocaleString()}`;
+  if (profileRides) profileRides.textContent = `${state.currentUser.ridesCount} Trips`;
+  if (profileRating) profileRating.textContent = `★ ${state.currentUser.rating}`;
+  if (profileCO2) profileCO2.textContent = `${state.currentUser.co2Saved} kg`;
 }
 
 // Search and Filter Rides
@@ -485,6 +660,12 @@ function renderRideDetails() {
 
 // Confirm Ride
 function confirmCurrentRide() {
+  if (!state.isLoggedIn) {
+    showToast("Please log in to confirm your ride booking", "🔒");
+    navigateTo("login");
+    return;
+  }
+
   const ride = state.selectedRide || state.rides[0];
   const bookedRide = {
     ...ride,
@@ -560,6 +741,12 @@ function updateOfferEstimate() {
 // Handle Posting a Ride
 function handlePostRide(e) {
   if (e) e.preventDefault();
+  if (!state.isLoggedIn) {
+    showToast("Please log in to post a ride", "🔒");
+    navigateTo("login");
+    return;
+  }
+
   const from = document.getElementById("offer-from-input").value.trim() || "Campus Main Gate";
   const to = document.getElementById("offer-to-input").value.trim() || "Connaught Place";
   const date = document.getElementById("offer-date-input").value || "Today";
@@ -831,6 +1018,14 @@ function submitRideRating() {
   }, 1000);
 }
 
+// Close dropdown on clicking outside
+document.addEventListener("click", (e) => {
+  const container = document.getElementById("user-dropdown-container");
+  if (container && !container.contains(e.target)) {
+    closeUserDropdown();
+  }
+});
+
 // Initial Setup
 window.addEventListener("DOMContentLoaded", () => {
   navigateTo("welcome");
@@ -843,5 +1038,5 @@ window.addEventListener("DOMContentLoaded", () => {
   if (fromInput) fromInput.addEventListener("input", updateOfferEstimate);
   if (toInput) toInput.addEventListener("input", updateOfferEstimate);
 
-  updateHomeData();
+  updateAuthUI();
 });
